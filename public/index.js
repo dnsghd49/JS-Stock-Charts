@@ -44,6 +44,24 @@ async function main() {
     new Chart(highestPriceChartCanvas.getContext('2d'), {
         type: 'bar',
         data: {
+            labels: stocks.map(stock => stock.meta.symbol),
+            datasets: stocks.map(stock => ({
+                label: 'highest price',
+                data: stock.values.map(value => parseFloat(value.high)),
+                backgroundColor: stocks.map(stock => (
+                    getColor(stock.meta.symbol)
+                )),
+                borderColor: stocks.map(stock => (
+                    getColor(stock.meta.symbol)
+                )),
+                
+            }))
+        },
+    });
+
+    new Chart(averagePriceChartCanvas.getContext('2d'), {
+        type: 'pie',
+        data: {
             labels: stocks[0].values.reverse().map(value => value.datetime),
             datasets: stocks.map(stock => ({
                 label: stock.meta.symbol,
@@ -51,10 +69,8 @@ async function main() {
                 backgroundColor: getColor(stock.meta.symbol),
                 borderColor: getColor(stock.meta.symbol),
             }))
-        },
+        }
     });
-
-
 
 
 }

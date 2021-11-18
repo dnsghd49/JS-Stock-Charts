@@ -18,11 +18,11 @@ async function main() {
     const timeChartCanvas = document.querySelector('#time-chart')
     const highestPriceChartCanvas = document.querySelector('#highest-price-chart')
     const averagePriceChartCanvas = document.querySelector('#average-price-chart')
-    const api_url = "https://api.twelvedata.com/time_series?symbol=GME,BNTX,DIS,MSFT&interval=1min&apikey=b191a421d6e6468ab03e1c1bedbb82f1"
+    const api_url = "https://api.twelvedata.com/time_series?symbol=GME,AMC,AAPL,ALF&interval=1min&apikey=b191a421d6e6468ab03e1c1bedbb82f1"
     const response = await fetch(api_url)
-    const result = await response.json()
-    const { GME } = result
-    const stocks = [GME]
+    const data = await response.json()
+    const { GME, AMC, AAPL, ALF } = data
+    const stocks = [GME, AMC, AAPL, ALF]
 
     // console.log(data)
     stocks.forEach(stock => stock.values)

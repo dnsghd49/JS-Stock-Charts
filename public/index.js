@@ -13,6 +13,16 @@ function getColor(stock) {
     }
 }
 
+function highestPrice(values) {
+    let price = 0;
+    values.forEach(value => {
+        if (parseFloat(value.high) > price) {
+            price = value.high
+        }
+    })
+    return price
+}
+
 async function main() {
 
     const timeChartCanvas = document.querySelector('#time-chart')
@@ -45,9 +55,11 @@ async function main() {
         type: 'bar',
         data: {
             labels: stocks.map(stock => stock.meta.symbol),
-            datasets: stocks.map(stock => ({
-                label: 'highest price',
-                data: stock.values.map(value => parseFloat(value.high)),
+            datasets: [{
+                label: 'Highest Price',
+                data: stocks.map(stock => (
+                    highestPrice(stock.values)
+                )),
                 backgroundColor: stocks.map(stock => (
                     getColor(stock.meta.symbol)
                 )),
@@ -55,7 +67,7 @@ async function main() {
                     getColor(stock.meta.symbol)
                 )),
                 
-            }))
+            }]
         },
     });
 
